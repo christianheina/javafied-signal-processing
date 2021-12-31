@@ -37,7 +37,7 @@ public class SignalProcessing {
     }
 
     /**
-     * Splits IQ data using a given interval. Calculates power for each interval.<br/>
+     * Splits IQ data using a given interval. Calculates power for each interval.<br>
      * <strong>Note!</strong> Only full intervals will be included. Any partial intervals will be excluded.
      * 
      * @param iqData
@@ -54,7 +54,7 @@ public class SignalProcessing {
     }
 
     /**
-     * Splits IQ data using a given interval. Calculates power for each interval.<br/>
+     * Splits IQ data using a given interval. Calculates power for each interval.<br>
      * <strong>Note!</strong> Only full intervals will be included. Any partial intervals will be excluded.
      * 
      * @param iqData
@@ -74,7 +74,7 @@ public class SignalProcessing {
     }
 
     /**
-     * Splits IQ data using a given interval and period. Calculates power for each interval.<br/>
+     * Splits IQ data using a given interval and period. Calculates power for each interval.<br>
      * <strong>Note!</strong> Only full intervals will be included. Any partial intervals will be excluded.
      * 
      * @param iqData
