@@ -14,11 +14,9 @@
  * limitations under the License.
  */
 
-package com.christianheina.communication.javafied.dsp.exceptions;
+package com.christianheina.communication.javafied.signalprocessing.exceptions;
 
 import org.testng.annotations.Test;
-
-import com.christianheina.communication.javafied.dsp.exceptions.SignalProcessingException;
 
 public class SignalProcessingExceptionTest {
 

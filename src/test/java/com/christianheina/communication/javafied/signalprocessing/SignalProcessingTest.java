@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.christianheina.communication.javafied.dsp;
+package com.christianheina.communication.javafied.signalprocessing;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,8 +24,8 @@ import org.testng.Assert;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
-import com.christianheina.communication.javafied.dsp.data.SignalFactory;
-import com.christianheina.communication.javafied.dsp.data.TimeDomainSignal;
+import com.christianheina.communication.javafied.signalprocessing.data.SignalFactory;
+import com.christianheina.communication.javafied.signalprocessing.data.TimeDomainSignal;
 
 public class SignalProcessingTest {
 

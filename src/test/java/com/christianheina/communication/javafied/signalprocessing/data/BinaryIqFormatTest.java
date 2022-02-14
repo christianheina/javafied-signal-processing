@@ -14,12 +14,10 @@
  * limitations under the License.
  */
 
-package com.christianheina.communication.javafied.dsp.data;
+package com.christianheina.communication.javafied.signalprocessing.data;
 
 import org.testng.Assert;
 import org.testng.annotations.Test;
-
-import com.christianheina.communication.javafied.dsp.data.BinaryIqFormat;
 
 public class BinaryIqFormatTest {
 

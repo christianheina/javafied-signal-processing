@@ -14,40 +14,13 @@
  * limitations under the License.
  */
 
-package com.christianheina.communication.javafied.dsp.data;
+package com.christianheina.communication.javafied.signalprocessing.data;
 
 /**
- * Enum for handling supported binary formats of IQ data
+ * Spectrum Power
  * 
  * @author Christian Heina (developer@christianheina.com)
  */
-public enum BinaryIqFormat {
-    /**
-     * 16 bit float
-     */
-    FLOAT_16(2),
-    /**
-     * 32 bit float
-     */
-    FLOAT_32(4),
-    /**
-     * 64 bit float
-     */
-    FLOAT_64(8);
-
-    private int byteLength;
-
-    BinaryIqFormat(int byteLength) {
-        this.byteLength = byteLength;
-    }
-
-    /**
-     * Retrieve byte length
-     * 
-     * @return byte length
-     */
-    public int getByteLength() {
-        return byteLength;
-    }
+public class SpectrumSignal {
 
 }

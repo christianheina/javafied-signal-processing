@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.christianheina.communication.javafied.dsp.data;
+package com.christianheina.communication.javafied.signalprocessing.data;
 
 import java.util.ArrayList;
 import java.util.List;

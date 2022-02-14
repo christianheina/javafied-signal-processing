@@ -14,19 +14,20 @@
  * limitations under the License.
  */
 
-package com.christianheina.communication.javafied.dsp;
+package com.christianheina.communication.javafied.signalprocessing;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.commons.math3.complex.Complex;
 
-import com.christianheina.communication.javafied.dsp.data.FrequencyDomainSignal;
-import com.christianheina.communication.javafied.dsp.data.SignalFactory;
-import com.christianheina.communication.javafied.dsp.data.TimeDomainSignal;
-import com.christianheina.communication.javafied.dsp.exceptions.SignalProcessingException;
+import com.christianheina.communication.javafied.signalprocessing.data.FrequencyDomainSignal;
+import com.christianheina.communication.javafied.signalprocessing.data.SignalFactory;
+import com.christianheina.communication.javafied.signalprocessing.data.TimeDomainSignal;
+import com.christianheina.communication.javafied.signalprocessing.exceptions.SignalProcessingException;
 
 /**
+ * Signal processing with multiple outputs.
  * 
  * @author Christian Heina (developer@christianheina.com)
  */

@@ -18,12 +18,12 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>com.christianheina.communication</groupId>
-	<artifactId>javafied-dsp</artifactId>
+	<artifactId>javafied-signal-processing</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>jar</packaging>
 
-	<name>Javafied Digital Signal Processing</name>
-	<description>Java style digital signal processing (DSP)</description>
+	<name>Javafied Signal Processing</name>
+	<description>Java style signal processing (DSP)</description>
 	<url>http://maven.apache.org</url>
 
 	<properties>
@@ -50,6 +50,12 @@
 			<artifactId>JTransforms</artifactId>
 			<version>3.1</version>
 			<classifier>with-dependencies</classifier>
+		</dependency>
+		<dependency>
+			<groupId>com.googlecode.json-simple</groupId>
+			<artifactId>json-simple</artifactId>
+			<version>1.1.1</version>
+			<scope>test</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.testng</groupId>
@@ -211,17 +217,17 @@
 		</repository>
 	</distributionManagement>
 	<scm>
-		<connection>scm:git:https://github.com/christianheina/javafied-dsp.git</connection>
-		<developerConnection>scm:git:https://github.com/christianheina/javafied-dsp.git</developerConnection>
-		<url>https://github.com/christianheina/javafied-dsp/tree/main</url>
+		<connection>scm:git:https://github.com/christianheina/javafied-signal-processing.git</connection>
+		<developerConnection>scm:git:https://github.com/christianheina/javafied-signal-processing.git</developerConnection>
+		<url>https://github.com/christianheina/javafied-signal-processing/tree/main</url>
 		<tag>HEAD</tag>
 	</scm>
 	<issueManagement>
-		<url>https://github.com/christianheina/javafied-dsp/issues</url>
+		<url>https://github.com/christianheina/javafied-signal-processing/issues</url>
 		<system>github</system>
 	</issueManagement>
 	<ciManagement>
 		<system>Github Actions</system>
-		<url>https://github.com/christianheina/javafied-dsp/actions</url>
+		<url>https://github.com/christianheina/javafied-signal-processing/actions</url>
 	</ciManagement>
 </project>

@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.christianheina.communication.javafied.dsp.data;
+package com.christianheina.communication.javafied.signalprocessing.data;
 
 import java.util.ArrayList;
 
@@ -22,10 +22,7 @@ import org.apache.commons.math3.complex.Complex;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
-import com.christianheina.communication.javafied.dsp.data.BinaryIqFormat;
-import com.christianheina.communication.javafied.dsp.data.SignalFactory;
-import com.christianheina.communication.javafied.dsp.data.TimeDomainSignal;
-import com.christianheina.communication.javafied.dsp.exceptions.SignalProcessingException;
+import com.christianheina.communication.javafied.signalprocessing.exceptions.SignalProcessingException;
 
 public class SignalFactoryTest {
 

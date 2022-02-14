@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.christianheina.communication.javafied.dsp.data;
+package com.christianheina.communication.javafied.signalprocessing.data;
 
 import java.nio.ByteBuffer;
 import java.util.ArrayList;
@@ -22,7 +22,7 @@ import java.util.List;
 
 import org.apache.commons.math3.complex.Complex;
 
-import com.christianheina.communication.javafied.dsp.exceptions.SignalProcessingException;
+import com.christianheina.communication.javafied.signalprocessing.exceptions.SignalProcessingException;
 
 /**
  * Factory for IqData.

@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.christianheina.communication.javafied.dsp.exceptions;
+package com.christianheina.communication.javafied.signalprocessing.exceptions;
 
 /**
  * Base exception for IQ processor.

@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.christianheina.communication.javafied.dsp.data;
+package com.christianheina.communication.javafied.signalprocessing.data;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,8 +23,6 @@ import org.apache.commons.math3.complex.Complex;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
-
-import com.christianheina.communication.javafied.dsp.data.FrequencyDomainSignal;
 
 public class FrequencyDomainSignalTest {
 
