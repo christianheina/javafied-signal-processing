@@ -20,6 +20,8 @@ import java.util.List;
 
 import org.apache.commons.math3.complex.Complex;
 
+import com.christianheina.communication.javafied.signalprocessing.util.ComplexMath;
+
 /**
  * Class for handling information related so signals such as IQ data and sample rate.
  * 
@@ -57,6 +59,21 @@ class Signal {
      */
     public List<Complex> getIqDataList() {
         return iqDataList;
+    }
+
+    /**
+     * The pearson correlation of this signal relative to some other signal
+     * 
+     * @param otherSignal
+     *            other signal to calculate correlation
+     * 
+     * @return correlation
+     * 
+     * @exception IllegalArgumentException
+     *                if this Signal.getIqDataList() and otherSignal.getIqDataList() is not the same size
+     */
+    public Complex correlationTo(Signal otherSignal) {
+        return ComplexMath.pearsonCorrelation(iqDataList, otherSignal.getIqDataList());
     }
 
 }

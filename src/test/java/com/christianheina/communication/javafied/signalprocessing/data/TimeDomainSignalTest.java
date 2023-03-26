@@ -90,4 +90,10 @@ public class TimeDomainSignalTest {
                         / RESISTANCE / 0.001));
     }
 
+    @Test
+    public void correlationToTest() {
+        Complex correlation = iqData.correlationTo(iqData);
+        Assert.assertEquals(correlation, Complex.NaN);
+    }
+
 }
