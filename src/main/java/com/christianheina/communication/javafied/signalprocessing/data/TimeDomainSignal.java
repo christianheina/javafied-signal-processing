@@ -20,7 +20,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.commons.math3.complex.Complex;
-import org.jtransforms.fft.DoubleFFT_1D;
+
+import com.christianheina.communication.javafied.signalprocessing.util.ComplexMath;
 
 /**
  * Class for handling time domain signals.
@@ -103,25 +104,8 @@ public class TimeDomainSignal extends Signal {
      * @return {@link FrequencyDomainSignal}
      */
     public FrequencyDomainSignal asFrequencyDomainSignal() {
-        DoubleFFT_1D fft = new DoubleFFT_1D(iqDataList.size());
-        double[] complexPairs = new double[iqDataList.size() * 2];
-        for (int i = 0; i < iqDataList.size(); i++) {
-            complexPairs[2 * i] = iqDataList.get(i).getReal();
-            complexPairs[2 * i + 1] = iqDataList.get(i).getImaginary();
-        }
-        fft.complexForward(complexPairs);
-        List<Complex> complexSpectrumList = new ArrayList<>();
-        for (int i = 0; i < iqDataList.size(); i++) {
-            complexSpectrumList
-                    .add(new Complex(complexPairs[2 * i], complexPairs[2 * i + 1]).divide(iqDataList.size()));
-        }
-        // List<Complex> tempList = new ArrayList<>(complexSpectrumList);
-        // complexSpectrumList.clear();
-        // complexSpectrumList.addAll(tempList.subList(tempList.size()/2, tempList.size()));
-        // complexSpectrumList.addAll(tempList.subList(0, tempList.size()/2));
-        // System.out.println(tempList.size());
-        // System.out.println(complexSpectrumList.size());
-        return new FrequencyDomainSignal(complexSpectrumList, sampleRate);
+        return new FrequencyDomainSignal(
+                ComplexMath.normalizeBySizeOfList(ComplexMath.fftShift(ComplexMath.fft(iqDataList))), sampleRate);
     }
 
 }

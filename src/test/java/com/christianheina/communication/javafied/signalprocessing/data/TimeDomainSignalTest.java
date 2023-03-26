@@ -96,4 +96,14 @@ public class TimeDomainSignalTest {
         Assert.assertEquals(correlation, Complex.NaN);
     }
 
+    @Test
+    public void asFrequencyDomainSignalTest() {
+        TimeDomainSignal timeToFreqAndBack = iqData.asFrequencyDomainSignal().asTimeDomainSignal();
+        Assert.assertEquals(timeToFreqAndBack.getIqDataList().size(), iqData.getIqDataList().size());
+        Assert.assertEquals(timeToFreqAndBack.getSampleRate(), iqData.getSampleRate());
+        for (int i = 0; i < timeToFreqAndBack.getIqDataList().size(); i++) {
+            Assert.assertEquals(timeToFreqAndBack.getIqDataList().get(i), iqData.getIqDataList().get(i));
+        }
+    }
+
 }

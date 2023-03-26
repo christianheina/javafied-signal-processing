@@ -16,9 +16,12 @@
 
 package com.christianheina.communication.javafied.signalprocessing.util;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import org.apache.commons.math3.complex.Complex;
+import org.jtransforms.fft.DoubleFFT_1D;
 
 /**
  * Utility class providing math functionality for complex numbers.
@@ -170,6 +173,115 @@ public class ComplexMath {
     public static Complex mean(List<Complex> listToMean) {
         // Divide sum of all entries by the number of entries
         return sum(listToMean).divide(listToMean.size());
+    }
+
+    /**
+     * Perform fast fourier transformation (FFT) on complex list
+     * 
+     * @param complexList
+     *            list of complex values to perform FFT on
+     * 
+     * @return result of FFT. Size of resulting FFT list is same as complexList argument
+     */
+    public static List<Complex> fft(List<Complex> complexList) {
+        DoubleFFT_1D fft = new DoubleFFT_1D(complexList.size());
+        double[] complexPairs = createComplexPairs(complexList);
+        fft.complexForward(complexPairs);
+        List<Complex> fftList = new ArrayList<>(complexList.size());
+        for (int i = 0; i < complexList.size(); i++) {
+            fftList.add(new Complex(complexPairs[2 * i], complexPairs[2 * i + 1]));
+        }
+        return fftList;
+    }
+
+    /**
+     * Performs FFT shift on complex list.
+     * 
+     * @param complexList
+     *            list to shift
+     * 
+     * @return new shifted list
+     */
+    public static List<Complex> fftShift(List<Complex> complexList) {
+        return circularlyShift(complexList, complexList.size() >> 1);
+    }
+
+    /**
+     * Performs inverse fast fourier transformation (iFFT) on complex list
+     * 
+     * @param complexList
+     *            list of complex values to perform iFFT on
+     * 
+     * @return result of iFFT. Size of resulting FFT list is same as complexList argument
+     */
+    public static List<Complex> ifft(List<Complex> complexList) {
+        DoubleFFT_1D temp = new DoubleFFT_1D(complexList.size());
+        double[] complexPairs = createComplexPairs(complexList);
+        temp.complexInverse(complexPairs, true);
+        List<Complex> ifftList = new ArrayList<>(complexList.size());
+        for (int i = 0; i < complexList.size(); i++) {
+            ifftList.add(new Complex(complexPairs[2 * i], complexPairs[2 * i + 1]));
+        }
+        return ifftList;
+    }
+
+    /**
+     * Performs FFT shift on complex list.
+     * 
+     * @param complexList
+     *            list to shift
+     * 
+     * @return new shifted list
+     */
+    public static List<Complex> ifftShift(List<Complex> complexList) {
+        return circularlyShift(complexList, (complexList.size() + 1) >> 1);
+    }
+
+    private static double[] createComplexPairs(List<Complex> complexList) {
+        double[] complexPairs = new double[complexList.size() * 2];
+        for (int i = 0; i < complexList.size(); i++) {
+            complexPairs[2 * i] = complexList.get(i).getReal();
+            complexPairs[2 * i + 1] = complexList.get(i).getImaginary();
+        }
+        return complexPairs;
+    }
+
+    private static List<Complex> circularlyShift(List<Complex> complexList, int shiftSteps) {
+        List<Complex> circularlyShiftedList = new ArrayList<>(complexList);
+        Collections.rotate(circularlyShiftedList, shiftSteps);
+        return circularlyShiftedList;
+    }
+
+    /**
+     * Normalize complex list with size of list
+     * 
+     * @param complexList
+     *            list to normalize
+     * 
+     * @return new list containing normalized data
+     */
+    public static List<Complex> normalizeBySizeOfList(List<Complex> complexList) {
+        List<Complex> normalizedComplexList = new ArrayList<>(complexList.size());
+        for (Complex sample : complexList) {
+            normalizedComplexList.add(sample.divide(complexList.size()));
+        }
+        return normalizedComplexList;
+    }
+
+    /**
+     * Scale complex list by size of list
+     * 
+     * @param complexList
+     *            list to scale
+     * 
+     * @return new list containing scaled list
+     */
+    public static List<Complex> scaleBySizeOfList(List<Complex> complexList) {
+        List<Complex> scaledComplexList = new ArrayList<>(complexList.size());
+        for (Complex sample : complexList) {
+            scaledComplexList.add(sample.multiply(complexList.size()));
+        }
+        return scaledComplexList;
     }
 
 }

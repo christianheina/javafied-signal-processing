@@ -90,4 +90,14 @@ public class FrequencyDomainSignalTest {
                         / RESISTANCE / 0.001));
     }
 
+    @Test
+    public void asTimeDomainSignalTest() {
+        FrequencyDomainSignal FreqToTimeAndBack = iqData.asTimeDomainSignal().asFrequencyDomainSignal();
+        Assert.assertEquals(FreqToTimeAndBack.getIqDataList().size(), iqData.getIqDataList().size());
+        Assert.assertEquals(FreqToTimeAndBack.getSampleRate(), iqData.getSampleRate());
+        for (int i = 0; i < FreqToTimeAndBack.getIqDataList().size(); i++) {
+            Assert.assertEquals(FreqToTimeAndBack.getIqDataList().get(i), iqData.getIqDataList().get(i));
+        }
+    }
+
 }

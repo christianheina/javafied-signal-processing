@@ -21,7 +21,7 @@ import java.util.List;
 
 import org.apache.commons.math3.complex.Complex;
 import org.testng.Assert;
-import org.testng.annotations.BeforeTest;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 public class ComplexMathTest {
@@ -31,8 +31,10 @@ public class ComplexMathTest {
 
     private List<Complex> complexList1;
     private List<Complex> complexList2;
+    private List<Complex> fftResultList;
+    private List<Complex> ifftResultList;
 
-    @BeforeTest
+    @BeforeMethod
     public void prepare() {
         Complex c = new Complex(1, 1);
         complexList1 = new ArrayList<>();
@@ -46,6 +48,18 @@ public class ComplexMathTest {
         complexList2.add(Complex.ONE);
         complexList2.add(NEGATIVE_ONE);
         complexList2.add(c);
+
+        fftResultList = new ArrayList<>();
+        fftResultList.add(new Complex(0, 1));
+        fftResultList.add(new Complex(1, 2));
+        fftResultList.add(new Complex(0, -1));
+        fftResultList.add(new Complex(3, -2));
+
+        ifftResultList = new ArrayList<>();
+        ifftResultList.add(new Complex(0, 0.25));
+        ifftResultList.add(new Complex(0.75, -0.5));
+        ifftResultList.add(new Complex(0, -0.25));
+        ifftResultList.add(new Complex(0.25, 0.5));
     }
 
     @Test
@@ -142,6 +156,62 @@ public class ComplexMathTest {
 
         Complex meanB = ComplexMath.mean(complexList1);
         Assert.assertTrue(meanB.equals(new Complex(0, 0.25)));
+    }
+
+    @Test
+    public void fftTest() {
+        List<Complex> fftList = ComplexMath.fft(complexList1);
+        Assert.assertEquals(fftList.size(), complexList1.size());
+        for (int i = 0; i < fftList.size(); i++) {
+            Assert.assertEquals(fftList.get(i), fftResultList.get(i));
+        }
+
+    }
+
+    @Test
+    public void fftShiftTest() {
+        List<Complex> evenFftShiftList = ComplexMath.fftShift(complexList1);
+        Assert.assertEquals(evenFftShiftList.size(), complexList1.size());
+        for (int i = 0; i < complexList1.size(); i++) {
+            Assert.assertEquals(complexList1.get(i),
+                    evenFftShiftList.get((i + (complexList1.size()) / 2) % complexList1.size()));
+        }
+
+        complexList1.add(NEGATIVE_ONE);
+        List<Complex> oddFftShiftList = ComplexMath.fftShift(complexList1);
+        Assert.assertEquals(oddFftShiftList.size(), complexList1.size());
+        for (int i = 0; i < complexList1.size(); i++) {
+            Assert.assertEquals(complexList1.get(i),
+                    oddFftShiftList.get((i + (complexList1.size()) / 2) % complexList1.size()));
+        }
+    }
+
+    @Test
+    public void ifftTest() {
+        List<Complex> ifftList = ComplexMath.ifft(complexList1);
+        Assert.assertEquals(ifftList.size(), complexList1.size());
+        for (int i = 0; i < ifftList.size(); i++) {
+            Assert.assertEquals(ifftList.get(i), ifftResultList.get(i));
+        }
+    }
+
+    @Test
+    public void ifftShiftTest() {
+        List<Complex> evenIfftShiftList = ComplexMath.ifftShift(complexList1);
+        Assert.assertEquals(evenIfftShiftList.size(), complexList1.size());
+        for (int i = 0; i < complexList1.size(); i++) {
+            Assert.assertEquals(complexList1.get(i),
+                    evenIfftShiftList.get((i + (complexList1.size() + 1) / 2) % complexList1.size()));
+        }
+
+        complexList1.add(NEGATIVE_ONE);
+        List<Complex> oddfftShiftList = ComplexMath.ifftShift(complexList1);
+        Assert.assertEquals(oddfftShiftList.size(), complexList1.size());
+        for (int i = 0; i < complexList1.size(); i++) {
+            Assert.assertEquals(complexList1.get(i),
+                    oddfftShiftList.get((i + (complexList1.size() + 1) / 2) % complexList1.size()));
+        }
+
     }
 
 }
