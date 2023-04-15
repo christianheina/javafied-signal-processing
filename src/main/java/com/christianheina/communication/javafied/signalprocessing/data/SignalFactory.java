@@ -97,7 +97,7 @@ public class SignalFactory {
             double inPhase = 0;
             double quadrature = 0;
             if (format == BinaryIqFormat.FLOAT_16) {
-            	throw new SignalProcessingException("16 bit float is currently not supported");
+                throw new SignalProcessingException("16 bit float is currently not supported");
             } else if (format == BinaryIqFormat.FLOAT_32) {
                 inPhase = ByteBuffer.wrap(iqBytes, i * format.getByteLength(), format.getByteLength()).getFloat();
                 quadrature = ByteBuffer.wrap(iqBytes, (i + 1) * format.getByteLength(), format.getByteLength())
