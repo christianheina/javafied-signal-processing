@@ -19,7 +19,7 @@
 
 	<groupId>com.christianheina.communication</groupId>
 	<artifactId>javafied-signal-processing</artifactId>
-	<version>0.0.3-SNAPSHOT</version>
+	<version>0.0.3</version>
 	<packaging>jar</packaging>
 
 	<name>Javafied Signal Processing</name>
@@ -219,7 +219,7 @@
 		<connection>scm:git:https://github.com/christianheina/javafied-signal-processing.git</connection>
 		<developerConnection>scm:git:https://github.com/christianheina/javafied-signal-processing.git</developerConnection>
 		<url>https://github.com/christianheina/javafied-signal-processing/tree/main</url>
-		<tag>HEAD</tag>
+		<tag>javafied-signal-processing-0.0.3</tag>
 	</scm>
 	<issueManagement>
 		<url>https://github.com/christianheina/javafied-signal-processing/issues</url>
