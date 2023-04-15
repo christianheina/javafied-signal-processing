@@ -1,1 +1,2 @@
-# javafied-dsp
+# javafied-signal-processing
+Java style signal processing (DSP)
