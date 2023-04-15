@@ -35,9 +35,9 @@ public class FrequencyDomainSignal extends Signal {
     }
 
     /**
-     * Converts {@link Complex}
+     * Convert IQ list to magnitude
      * 
-     * @return return {@link Complex} frequency domain list
+     * @return magnitude list
      */
     public List<Double> toMagnitude() {
         List<Double> spectrumList = new ArrayList<>();
@@ -48,12 +48,12 @@ public class FrequencyDomainSignal extends Signal {
     }
 
     /**
-     * Converts time domain IQ list to {@link Complex} frequency domain list
+     * Convert IQ list to Watt power
      * 
      * @param resistance
      *            the resistance in ohms.
      * 
-     * @return return {@link Complex} frequency domain list
+     * @return power list
      */
     public List<Double> toPower(double resistance) {
         List<Double> spectrumList = toMagnitude();
@@ -64,12 +64,12 @@ public class FrequencyDomainSignal extends Signal {
     }
 
     /**
-     * Converts time domain IQ list to {@link Complex} frequency domain list
+     * Convert IQ list to dBm power
      * 
      * @param resistance
      *            the resistance in ohms.
      * 
-     * @return return {@link Complex} frequency domain list
+     * @return power list
      */
     public List<Double> toPowerDbm(double resistance) {
         List<Double> spectrumList = toPower(resistance);
@@ -80,12 +80,12 @@ public class FrequencyDomainSignal extends Signal {
     }
 
     /**
-     * Converts time domain IQ list to {@link Complex} frequency domain list
+     * Convert IQ list to dBm power sum
      * 
      * @param resistance
      *            the resistance in ohms.
      * 
-     * @return return {@link Complex} frequency domain list
+     * @return sum power
      */
     public double toSumPowerDbm(double resistance) {
         List<Double> spectrumList = toPower(resistance);

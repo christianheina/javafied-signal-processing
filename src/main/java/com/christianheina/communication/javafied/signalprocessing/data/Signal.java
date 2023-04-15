@@ -67,7 +67,7 @@ class Signal {
      * @param otherSignal
      *            other signal to calculate correlation
      * 
-     * @return correlation
+     * @return {@code Complex} correlation value
      * 
      * @exception IllegalArgumentException
      *                if this Signal.getIqDataList() and otherSignal.getIqDataList() is not the same size

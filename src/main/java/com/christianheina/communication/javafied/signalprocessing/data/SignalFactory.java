@@ -25,7 +25,7 @@ import org.apache.commons.math3.complex.Complex;
 import com.christianheina.communication.javafied.signalprocessing.exceptions.SignalProcessingException;
 
 /**
- * Factory for IqData.
+ * Factory for {@link Signal}
  * 
  * @author Christian Heina (developer@christianheina.com)
  */

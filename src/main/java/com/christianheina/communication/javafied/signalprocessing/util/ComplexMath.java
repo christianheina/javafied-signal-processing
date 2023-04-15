@@ -41,8 +41,7 @@ public class ComplexMath {
      * @param complexList2
      *            second list to calculate correlation
      * 
-     * @return Correlation. Value is between -1 and 1 with -1 being negatively correlated, 0 being uncorrelated and 1
-     *         correlated.
+     * @return {@code Complex} correlation value
      * 
      * @exception IllegalArgumentException
      *                if complexList1 and complexList2 is not the same size
