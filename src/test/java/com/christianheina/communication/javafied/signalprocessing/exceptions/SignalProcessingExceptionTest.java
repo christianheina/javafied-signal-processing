@@ -18,6 +18,11 @@ package com.christianheina.communication.javafied.signalprocessing.exceptions;
 
 import org.testng.annotations.Test;
 
+/**
+ * Unit test for {@link SignalProcessingException}.
+ * 
+ * @author Christian Heina (developer@christianheina.com)
+ */
 public class SignalProcessingExceptionTest {
 
     @Test(expectedExceptions = SignalProcessingException.class)

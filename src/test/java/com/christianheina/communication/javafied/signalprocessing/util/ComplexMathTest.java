@@ -24,6 +24,11 @@ import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
+/**
+ * Unit test for {@link ComplexMath}.
+ * 
+ * @author Christian Heina (developer@christianheina.com)
+ */
 public class ComplexMathTest {
 
     private static final Complex NEGATIVE_ONE = new Complex(-1, 0);

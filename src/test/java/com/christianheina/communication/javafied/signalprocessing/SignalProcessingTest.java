@@ -27,6 +27,11 @@ import org.testng.annotations.Test;
 import com.christianheina.communication.javafied.signalprocessing.data.SignalFactory;
 import com.christianheina.communication.javafied.signalprocessing.data.TimeDomainSignal;
 
+/**
+ * Unit test for {@link SignalProcessing}.
+ * 
+ * @author Christian Heina (developer@christianheina.com)
+ */
 public class SignalProcessingTest {
 
     private static final double THRESHOLD = 1E-10;

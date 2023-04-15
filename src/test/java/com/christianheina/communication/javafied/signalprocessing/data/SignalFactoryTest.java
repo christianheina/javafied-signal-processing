@@ -24,6 +24,11 @@ import org.testng.annotations.Test;
 
 import com.christianheina.communication.javafied.signalprocessing.exceptions.SignalProcessingException;
 
+/**
+ * Unit test for {@link SignalFactory}.
+ * 
+ * @author Christian Heina (developer@christianheina.com)
+ */
 public class SignalFactoryTest {
 
     @Test

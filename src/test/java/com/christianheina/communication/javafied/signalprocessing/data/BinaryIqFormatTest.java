@@ -19,6 +19,11 @@ package com.christianheina.communication.javafied.signalprocessing.data;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
+/**
+ * Unit test for {@link BinaryIqFormat}.
+ * 
+ * @author Christian Heina (developer@christianheina.com)
+ */
 public class BinaryIqFormatTest {
 
     @Test

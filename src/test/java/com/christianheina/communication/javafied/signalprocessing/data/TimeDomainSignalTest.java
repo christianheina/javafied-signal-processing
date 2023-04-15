@@ -24,6 +24,11 @@ import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
+/**
+ * Unit test for {@link TimeDomainSignal}.
+ * 
+ * @author Christian Heina (developer@christianheina.com)
+ */
 public class TimeDomainSignalTest {
 
     private static final int SAMPLE_RATE = 120;

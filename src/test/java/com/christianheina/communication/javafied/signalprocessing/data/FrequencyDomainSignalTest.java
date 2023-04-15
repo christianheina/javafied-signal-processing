@@ -24,6 +24,11 @@ import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
+/**
+ * Unit test for {@link FrequencyDomainSignal}.
+ * 
+ * @author Christian Heina (developer@christianheina.com)
+ */
 public class FrequencyDomainSignalTest {
 
     private static final int SAMPLE_RATE = 120;
