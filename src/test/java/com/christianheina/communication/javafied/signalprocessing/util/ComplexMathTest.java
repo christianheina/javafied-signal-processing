@@ -126,23 +126,23 @@ public class ComplexMathTest {
     @Test
     public void varianceTest() {
         double varA = ComplexMath.variance(complexList1);
-        Assert.assertEquals(varA, 1.5833333333333333, 1e-9);
-        Assert.assertEquals(varA, Math.pow(ComplexMath.standardDeviation(complexList1), 2), 1e-9);
+        Assert.assertEquals(1.5833333333333333, varA, 1e-9);
+        Assert.assertEquals(Math.pow(ComplexMath.standardDeviation(complexList1), 2), varA, 1e-9);
 
         double varB = ComplexMath.variance(complexList2);
-        Assert.assertEquals(varB, 1.5833333333333333, 1e-9);
-        Assert.assertEquals(varA, Math.pow(ComplexMath.standardDeviation(complexList2), 2), 1e-9);
+        Assert.assertEquals(1.5833333333333333, varB, 1e-9);
+        Assert.assertEquals(Math.pow(ComplexMath.standardDeviation(complexList2), 2), varA, 1e-9);
     }
 
     @Test
     public void standardDeviationTest() {
         double stdA = ComplexMath.standardDeviation(complexList1);
-        Assert.assertEquals(stdA, 1.2583057392117916, 1e-9);
-        Assert.assertEquals(stdA, Math.sqrt(ComplexMath.variance(complexList1)));
+        Assert.assertEquals(1.2583057392117916, stdA, 1e-9);
+        Assert.assertEquals(Math.sqrt(ComplexMath.variance(complexList1)), stdA, 1e-9);
 
         double stdB = ComplexMath.standardDeviation(complexList2);
-        Assert.assertEquals(stdB, 1.2583057392117916, 1e-9);
-        Assert.assertEquals(stdB, Math.sqrt(ComplexMath.variance(complexList2)));
+        Assert.assertEquals(1.2583057392117916, stdB, 1e-9);
+        Assert.assertEquals(Math.sqrt(ComplexMath.variance(complexList2)), stdB, 1e-9);
     }
 
     @Test
