@@ -16,7 +16,6 @@
 
 package com.christianheina.communication.javafied.signalprocessing.data;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.commons.math3.complex.Complex;
@@ -32,70 +31,6 @@ public class TimeDomainSignal extends Signal {
 
     TimeDomainSignal(List<Complex> iqDataList, int sampleRate) {
         super(iqDataList, sampleRate);
-    }
-
-    /**
-     * Convert IQ list to magnitude
-     * 
-     * @return magnitude list
-     */
-    public List<Double> toMagnitude() {
-        List<Double> magnitudeList = new ArrayList<>();
-        for (Complex iqEntry : iqDataList) {
-            magnitudeList.add(iqEntry.abs());
-        }
-        return magnitudeList;
-    }
-
-    /**
-     * Convert IQ list to Watt power
-     * 
-     * @param resistance
-     *            the resistance in ohms.
-     * 
-     * @return power list
-     */
-    public List<Double> toPower(double resistance) {
-        List<Double> powerList = new ArrayList<>();
-        List<Double> magnitudeList = toMagnitude();
-        for (double magnitude : magnitudeList) {
-            powerList.add(Math.pow(magnitude, 2) / resistance);
-        }
-        return powerList;
-    }
-
-    /**
-     * Convert IQ list to dBm power
-     * 
-     * @param resistance
-     *            the resistance in ohms.
-     * 
-     * @return power list
-     */
-    public List<Double> toPowerDbm(double resistance) {
-        List<Double> powerDbmList = new ArrayList<>();
-        List<Double> powerList = toPower(resistance);
-        for (double power : powerList) {
-            powerDbmList.add(10 * Math.log10(power / 0.001));
-        }
-        return powerDbmList;
-    }
-
-    /**
-     * Convert IQ list to mean dBm power
-     * 
-     * @param resistance
-     *            the resistance in ohms.
-     * 
-     * @return mean power
-     */
-    public double toAveragePowerDbm(double resistance) {
-        List<Double> powerList = toPower(resistance);
-        double sum = 0;
-        for (double power : powerList) {
-            sum += power;
-        }
-        return 10 * Math.log10((sum / powerList.size()) / 0.001);
     }
 
     /**

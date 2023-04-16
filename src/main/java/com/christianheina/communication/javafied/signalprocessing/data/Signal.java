@@ -21,6 +21,7 @@ import java.util.List;
 import org.apache.commons.math3.complex.Complex;
 
 import com.christianheina.communication.javafied.signalprocessing.util.ComplexMath;
+import com.christianheina.communication.javafied.signalprocessing.util.PowerUtil;
 
 /**
  * Class for handling information related so signals such as IQ data and sample rate.
@@ -59,6 +60,63 @@ class Signal {
      */
     public List<Complex> getIqDataList() {
         return iqDataList;
+    }
+
+    /**
+     * Convert IQ list to magnitude
+     * 
+     * @return magnitude list
+     */
+    public List<Double> toMagnitude() {
+        return PowerUtil.complexListToMagnitudeList(iqDataList);
+    }
+
+    /**
+     * Convert IQ list to Watt power
+     * 
+     * @param resistance
+     *            the resistance in ohms.
+     * 
+     * @return power list
+     */
+    public List<Double> toPower(double resistance) {
+        return PowerUtil.complexListToPowerList(iqDataList, resistance);
+    }
+
+    /**
+     * Convert IQ list to dBm power
+     * 
+     * @param resistance
+     *            the resistance in ohms.
+     * 
+     * @return power list
+     */
+    public List<Double> toPowerDbm(double resistance) {
+        return PowerUtil.complexListToPowerDbmList(iqDataList, resistance);
+    }
+
+    /**
+     * Convert IQ list to mean dBm power
+     * 
+     * @param resistance
+     *            the resistance in ohms.
+     * 
+     * @return mean power
+     */
+    public double toAveragePowerDbm(double resistance) {
+        return PowerUtil.complexListToAveragePowerDbm(iqDataList, resistance);
+    }
+
+    /**
+     * Convert IQ list to dBm power sum
+     * 
+     * @param resistance
+     *            the resistance in ohms.
+     * 
+     * @return sum power
+     */
+    public double toSumPowerDbm(double resistance) {
+        return PowerUtil.complexListToSumPowerDbm(iqDataList, resistance);
     }
 
     /**
