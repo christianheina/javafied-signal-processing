@@ -20,7 +20,12 @@ package com.christianheina.communication.javafied.signalprocessing.data;
  * Enum for handling supported binary formats of IQ data
  * 
  * @author Christian Heina (developer@christianheina.com)
+ * 
+ * @deprecated As of 2023-04-16 this is replaced by
+ *             {@link com.christianheina.communication.javafied.signalprocessing.enums.BinaryIqFormat BinaryIqFormat}.
+ *             This class will be supported until 2023-07-16 and removed 2023-10-16.
  */
+@Deprecated
 public enum BinaryIqFormat {
     /**
      * 16 bit float

@@ -22,6 +22,7 @@ import java.util.List;
 
 import org.apache.commons.math3.complex.Complex;
 
+import com.christianheina.communication.javafied.signalprocessing.enums.BinaryIqFormat;
 import com.christianheina.communication.javafied.signalprocessing.exceptions.SignalProcessingException;
 
 /**
@@ -83,7 +84,7 @@ public class SignalFactory {
      * 
      * @return new {@link TimeDomainSignal} instance containing the converted byte array
      */
-    public static TimeDomainSignal newTimeDomainSignal(byte iqBytes[], BinaryIqFormat format, int sampleRate) {
+    public static TimeDomainSignal newTimeDomainSignal(byte[] iqBytes, BinaryIqFormat format, int sampleRate) {
         if (iqBytes.length % format.getByteLength() != 0) {
             throw new SignalProcessingException(
                     "IQ byte array and format does not match. Please make sure expected format matches byte array");
@@ -110,6 +111,35 @@ public class SignalFactory {
             iqValueList.add(new Complex(inPhase, quadrature));
         }
         return new TimeDomainSignal(iqValueList, sampleRate);
+    }
+
+    /**
+     * Create new {@link TimeDomainSignal} instance from byte array containing I and Q pairs.
+     * 
+     * @param iqBytes
+     *            byte array containing I and Q pairs.
+     * @param format
+     *            the binary format of conversion
+     * @param sampleRate
+     *            the sample rate of IQ data
+     * 
+     * @return new {@link TimeDomainSignal} instance containing the converted byte array
+     * 
+     * @deprecated As of 2023-04-16 this is replaced by
+     *             {@link com.christianheina.communication.javafied.signalprocessing.data.SignalFactory#newTimeDomainSignal(byte[], BinaryIqFormat, int)
+     *             newTimeDomainSignal(byte[] iqBytes, BinaryIqFormat format, int sampleRate)}. This method will be
+     *             supported until 2023-07-16 and removed 2023-10-16.
+     */
+    @Deprecated
+    public static TimeDomainSignal newTimeDomainSignal(byte[] iqBytes,
+            com.christianheina.communication.javafied.signalprocessing.data.BinaryIqFormat format, int sampleRate) {
+        if (format == com.christianheina.communication.javafied.signalprocessing.data.BinaryIqFormat.FLOAT_16) {
+            return newTimeDomainSignal(iqBytes, BinaryIqFormat.FLOAT_16, sampleRate);
+        } else if (format == com.christianheina.communication.javafied.signalprocessing.data.BinaryIqFormat.FLOAT_32) {
+            return newTimeDomainSignal(iqBytes, BinaryIqFormat.FLOAT_32, sampleRate);
+        } else {
+            return newTimeDomainSignal(iqBytes, BinaryIqFormat.FLOAT_64, sampleRate);
+        }
     }
 
     /**

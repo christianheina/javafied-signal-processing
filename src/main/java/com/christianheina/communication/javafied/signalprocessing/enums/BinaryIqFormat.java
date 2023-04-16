@@ -14,34 +14,40 @@
  * limitations under the License.
  */
 
-package com.christianheina.communication.javafied.signalprocessing.data;
-
-import org.testng.Assert;
-import org.testng.annotations.Test;
+package com.christianheina.communication.javafied.signalprocessing.enums;
 
 /**
- * Unit test for {@link BinaryIqFormat}.
+ * Enum for handling supported binary formats of IQ data
  * 
  * @author Christian Heina (developer@christianheina.com)
  */
-public class BinaryIqFormatTest {
+public enum BinaryIqFormat {
+    /**
+     * 16 bit float
+     */
+    FLOAT_16(2),
+    /**
+     * 32 bit float
+     */
+    FLOAT_32(4),
+    /**
+     * 64 bit float
+     */
+    FLOAT_64(8);
 
-    @Test
-    public void getFloat16() {
-        int bytes = BinaryIqFormat.FLOAT_16.getByteLength();
-        Assert.assertEquals(bytes, 2);
+    private int byteLength;
+
+    BinaryIqFormat(int byteLength) {
+        this.byteLength = byteLength;
     }
 
-    @Test
-    public void getFloat32() {
-        int bytes = BinaryIqFormat.FLOAT_32.getByteLength();
-        Assert.assertEquals(bytes, 4);
-    }
-
-    @Test
-    public void getFloat64() {
-        int bytes = BinaryIqFormat.FLOAT_64.getByteLength();
-        Assert.assertEquals(bytes, 8);
+    /**
+     * Retrieve byte length
+     * 
+     * @return byte length
+     */
+    public int getByteLength() {
+        return byteLength;
     }
 
 }

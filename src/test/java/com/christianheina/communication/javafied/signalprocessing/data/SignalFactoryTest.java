@@ -22,6 +22,7 @@ import org.apache.commons.math3.complex.Complex;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
+import com.christianheina.communication.javafied.signalprocessing.enums.BinaryIqFormat;
 import com.christianheina.communication.javafied.signalprocessing.exceptions.SignalProcessingException;
 
 /**
