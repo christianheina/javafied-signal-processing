@@ -102,7 +102,7 @@ public class FrequencyDomainSignal extends Signal {
      * @return {@link TimeDomainSignal}
      */
     public TimeDomainSignal asTimeDomainSignal() {
-        return new TimeDomainSignal(ComplexMath.scaleBySizeOfList(ComplexMath.ifftShift(ComplexMath.ifft(iqDataList))),
+        return new TimeDomainSignal(ComplexMath.scaleBySizeOfList(ComplexMath.ifft(ComplexMath.ifftShift(iqDataList))),
                 sampleRate);
     }
 
