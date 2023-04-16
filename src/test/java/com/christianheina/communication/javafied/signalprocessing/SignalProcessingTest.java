@@ -24,8 +24,10 @@ import org.testng.Assert;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
+import com.christianheina.communication.javafied.signalprocessing.data.FrequencyDomainSignal;
 import com.christianheina.communication.javafied.signalprocessing.data.SignalFactory;
 import com.christianheina.communication.javafied.signalprocessing.data.TimeDomainSignal;
+import com.christianheina.communication.javafied.signalprocessing.exceptions.SignalProcessingException;
 
 /**
  * Unit test for {@link SignalProcessing}.
@@ -96,6 +98,152 @@ public class SignalProcessingTest {
         List<TimeDomainSignal> powerForIntervalList = SignalProcessing.splitIqDataForTimeInterval(iqData, 0, 0.002,
                 0.005);
         Assert.assertEquals(powerForIntervalList.size(), 2);
+    }
+
+    @Test
+    public void iqDataSubsetForFrequencyRangeTest() {
+        List<Complex> data = new ArrayList<>();
+        data.add(Complex.ONE.multiply(-0.5));
+        data.add(Complex.ONE);
+        data.add(Complex.ONE.multiply(-1));
+        data.add(Complex.ZERO.multiply(0.5));
+        FrequencyDomainSignal freqSig = SignalFactory.newFrequencyDomainSignal(data, 4);
+        FrequencyDomainSignal filteredFreqSig = SignalProcessing.iqDataSubsetForFrequencyRange(freqSig, 2);
+        Assert.assertNotEquals(filteredFreqSig.getIqDataList().size(), freqSig.getIqDataList().size());
+        Assert.assertEquals(filteredFreqSig.getIqDataList().size(), 2);
+        Assert.assertEquals(filteredFreqSig.getIqDataList().get(0), Complex.ONE);
+        Assert.assertEquals(filteredFreqSig.getIqDataList().get(1), Complex.ONE.multiply(-1));
+
+        data.add(Complex.ONE.multiply(-1));
+        data.add(Complex.ZERO.multiply(0.5));
+        filteredFreqSig = SignalProcessing.iqDataSubsetForFrequencyRange(freqSig, 2);
+        Assert.assertNotEquals(filteredFreqSig.getIqDataList().size(), freqSig.getIqDataList().size());
+        Assert.assertEquals(filteredFreqSig.getIqDataList().size(), 2);
+        Assert.assertEquals(filteredFreqSig.getIqDataList().get(0), Complex.ONE.multiply(-1));
+        Assert.assertEquals(filteredFreqSig.getIqDataList().get(1), Complex.ZERO.multiply(0.5));
+
+        data.add(Complex.ONE.multiply(-1));
+        data.add(Complex.ZERO.multiply(0.5));
+        filteredFreqSig = SignalProcessing.iqDataSubsetForFrequencyRange(freqSig, 2);
+        Assert.assertNotEquals(filteredFreqSig.getIqDataList().size(), freqSig.getIqDataList().size());
+        Assert.assertEquals(filteredFreqSig.getIqDataList().size(), 4);
+        Assert.assertEquals(filteredFreqSig.getIqDataList().get(0), Complex.ONE.multiply(-1));
+        Assert.assertEquals(filteredFreqSig.getIqDataList().get(1), Complex.ZERO.multiply(0.5));
+        Assert.assertEquals(filteredFreqSig.getIqDataList().get(2), Complex.ONE.multiply(-1));
+        Assert.assertEquals(filteredFreqSig.getIqDataList().get(3), Complex.ZERO.multiply(0.5));
+    }
+
+    @Test(expectedExceptions = SignalProcessingException.class)
+    public void iqDataSubsetForFrequencyRangeExceptionTest() {
+        List<Complex> data = new ArrayList<>();
+        data.add(Complex.ONE.multiply(-0.5));
+        data.add(Complex.ONE);
+        data.add(Complex.ONE.multiply(-1));
+        data.add(Complex.ZERO.multiply(0.5));
+        FrequencyDomainSignal freqSig = SignalFactory.newFrequencyDomainSignal(data, 4);
+        // Should throw exception
+        SignalProcessing.iqDataSubsetForFrequencyRange(freqSig, 10);
+    }
+
+    @Test
+    public void filterReplaceWithZeroTimeDomainTest() {
+        List<Complex> data = new ArrayList<>();
+        data.add(Complex.ONE.multiply(-0.5));
+        data.add(Complex.ONE);
+        data.add(new Complex(-1, 0));
+        data.add(Complex.ZERO.multiply(0.5));
+        FrequencyDomainSignal freqSig = SignalFactory.newFrequencyDomainSignal(data, 4);
+        FrequencyDomainSignal filteredFreqSig = SignalProcessing.filterReplaceWithZero(freqSig.asTimeDomainSignal(), 2)
+                .asFrequencyDomainSignal();
+        Assert.assertEquals(filteredFreqSig.getIqDataList().size(), freqSig.getIqDataList().size());
+        Assert.assertTrue(complexEquals(filteredFreqSig.getIqDataList().get(0), Complex.ZERO));
+        Assert.assertTrue(complexEquals(filteredFreqSig.getIqDataList().get(1), data.get(1)));
+        Assert.assertTrue(complexEquals(filteredFreqSig.getIqDataList().get(2), data.get(2)));
+        Assert.assertTrue(complexEquals(filteredFreqSig.getIqDataList().get(3), Complex.ZERO));
+
+        data.add(new Complex(-1, 0));
+        data.add(Complex.ZERO.multiply(0.5));
+        filteredFreqSig = SignalProcessing.filterReplaceWithZero(freqSig.asTimeDomainSignal(), 2)
+                .asFrequencyDomainSignal();
+        Assert.assertEquals(filteredFreqSig.getIqDataList().size(), freqSig.getIqDataList().size());
+        Assert.assertTrue(complexEquals(filteredFreqSig.getIqDataList().get(0), Complex.ZERO));
+        Assert.assertTrue(complexEquals(filteredFreqSig.getIqDataList().get(1), Complex.ZERO));
+        Assert.assertTrue(complexEquals(filteredFreqSig.getIqDataList().get(2), data.get(2)));
+        Assert.assertTrue(complexEquals(filteredFreqSig.getIqDataList().get(3), data.get(3)));
+        Assert.assertTrue(complexEquals(filteredFreqSig.getIqDataList().get(4), Complex.ZERO));
+        Assert.assertTrue(complexEquals(filteredFreqSig.getIqDataList().get(5), Complex.ZERO));
+
+        data.add(new Complex(-1, 0));
+        data.add(Complex.ZERO.multiply(0.5));
+        filteredFreqSig = SignalProcessing.filterReplaceWithZero(freqSig.asTimeDomainSignal(), 2)
+                .asFrequencyDomainSignal();
+        Assert.assertEquals(filteredFreqSig.getIqDataList().size(), freqSig.getIqDataList().size());
+        Assert.assertTrue(complexEquals(filteredFreqSig.getIqDataList().get(0), Complex.ZERO));
+        Assert.assertTrue(complexEquals(filteredFreqSig.getIqDataList().get(1), Complex.ZERO));
+        Assert.assertTrue(complexEquals(filteredFreqSig.getIqDataList().get(2), data.get(2)));
+        Assert.assertTrue(complexEquals(filteredFreqSig.getIqDataList().get(3), data.get(3)));
+        Assert.assertTrue(complexEquals(filteredFreqSig.getIqDataList().get(4), data.get(4)));
+        Assert.assertTrue(complexEquals(filteredFreqSig.getIqDataList().get(5), data.get(5)));
+        Assert.assertTrue(complexEquals(filteredFreqSig.getIqDataList().get(6), Complex.ZERO));
+        Assert.assertTrue(complexEquals(filteredFreqSig.getIqDataList().get(7), Complex.ZERO));
+    }
+
+    @Test
+    public void filterReplaceWithZeroFrequencyDomainTest() {
+        List<Complex> data = new ArrayList<>();
+        data.add(Complex.ONE.multiply(-0.5));
+        data.add(Complex.ONE);
+        data.add(new Complex(-1, 0));
+        data.add(Complex.ZERO.multiply(0.5));
+        FrequencyDomainSignal freqSig = SignalFactory.newFrequencyDomainSignal(data, 4);
+        FrequencyDomainSignal filteredFreqSig = SignalProcessing.filterReplaceWithZero(freqSig, 2)
+                .asFrequencyDomainSignal();
+        Assert.assertEquals(filteredFreqSig.getIqDataList().size(), freqSig.getIqDataList().size());
+        Assert.assertTrue(complexEquals(filteredFreqSig.getIqDataList().get(0), Complex.ZERO));
+        Assert.assertTrue(complexEquals(filteredFreqSig.getIqDataList().get(1), data.get(1)));
+        Assert.assertTrue(complexEquals(filteredFreqSig.getIqDataList().get(2), data.get(2)));
+        Assert.assertTrue(complexEquals(filteredFreqSig.getIqDataList().get(3), Complex.ZERO));
+
+        data.add(new Complex(-1, 0));
+        data.add(Complex.ZERO.multiply(0.5));
+        filteredFreqSig = SignalProcessing.filterReplaceWithZero(freqSig, 2).asFrequencyDomainSignal();
+        Assert.assertEquals(filteredFreqSig.getIqDataList().size(), freqSig.getIqDataList().size());
+        Assert.assertTrue(complexEquals(filteredFreqSig.getIqDataList().get(0), Complex.ZERO));
+        Assert.assertTrue(complexEquals(filteredFreqSig.getIqDataList().get(1), Complex.ZERO));
+        Assert.assertTrue(complexEquals(filteredFreqSig.getIqDataList().get(2), Complex.ONE.multiply(-1)));
+        Assert.assertTrue(complexEquals(filteredFreqSig.getIqDataList().get(3), Complex.ZERO.multiply(0.5)));
+        Assert.assertTrue(complexEquals(filteredFreqSig.getIqDataList().get(4), Complex.ZERO));
+        Assert.assertTrue(complexEquals(filteredFreqSig.getIqDataList().get(5), Complex.ZERO));
+
+        data.add(new Complex(-1, 0));
+        data.add(Complex.ZERO.multiply(0.5));
+        filteredFreqSig = SignalProcessing.filterReplaceWithZero(freqSig, 2).asFrequencyDomainSignal();
+        Assert.assertEquals(filteredFreqSig.getIqDataList().size(), freqSig.getIqDataList().size());
+        Assert.assertTrue(complexEquals(filteredFreqSig.getIqDataList().get(0), Complex.ZERO));
+        Assert.assertTrue(complexEquals(filteredFreqSig.getIqDataList().get(1), Complex.ZERO));
+        Assert.assertTrue(complexEquals(filteredFreqSig.getIqDataList().get(2), Complex.ONE.multiply(-1)));
+        Assert.assertTrue(complexEquals(filteredFreqSig.getIqDataList().get(3), Complex.ZERO.multiply(0.5)));
+        Assert.assertTrue(complexEquals(filteredFreqSig.getIqDataList().get(4), Complex.ONE.multiply(-1)));
+        Assert.assertTrue(complexEquals(filteredFreqSig.getIqDataList().get(5), Complex.ZERO.multiply(0.5)));
+        Assert.assertTrue(complexEquals(filteredFreqSig.getIqDataList().get(6), Complex.ZERO));
+        Assert.assertTrue(complexEquals(filteredFreqSig.getIqDataList().get(7), Complex.ZERO));
+    }
+
+    @Test(expectedExceptions = SignalProcessingException.class)
+    public void filterReplaceWithZeroFreqRangeExceptionTest() {
+        List<Complex> data = new ArrayList<>();
+        data.add(Complex.ONE.multiply(-0.5));
+        data.add(Complex.ONE);
+        data.add(new Complex(-1, 0));
+        data.add(Complex.ZERO.multiply(0.5));
+        FrequencyDomainSignal freqSig = SignalFactory.newFrequencyDomainSignal(data, 4);
+        // Should throw exception
+        SignalProcessing.filterReplaceWithZero(freqSig, 10).asFrequencyDomainSignal();
+    }
+
+    private boolean complexEquals(Complex complex1, Complex complex2) {
+        return Math.abs(complex1.getReal() - complex2.getReal()) < THRESHOLD
+                && Math.abs(complex1.getImaginary() - complex2.getImaginary()) < THRESHOLD;
     }
 
 }

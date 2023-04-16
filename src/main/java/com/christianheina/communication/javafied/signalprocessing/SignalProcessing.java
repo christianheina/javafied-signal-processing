@@ -176,10 +176,8 @@ public class SignalProcessing {
             throw new SignalProcessingException("Requested frequency range is larger than data sample rate");
         }
         int samples = (int) (frequencyRange / ((double) signal.getSampleRate() / signal.getIqDataList().size()));
-        List<Complex> iqDataList = new ArrayList<>();
-        iqDataList.addAll(signal.getIqDataList().subList(signal.getIqDataList().size() - 1 - samples / 2,
-                signal.getIqDataList().size()));
-        iqDataList.addAll(signal.getIqDataList().subList(0, samples / 2 + 1));
+        List<Complex> iqDataList = signal.getIqDataList().subList((int) Math.ceil(samples / 2.0),
+                signal.getIqDataList().size() - (int) Math.ceil(samples / 2.0));
         return SignalFactory.newFrequencyDomainSignal(iqDataList, signal.getSampleRate());
     }
 
@@ -211,11 +209,12 @@ public class SignalProcessing {
         if (frequencyRange > signal.getSampleRate()) {
             throw new SignalProcessingException("Requested frequency range is larger than data sample rate");
         }
-
         int samples = (int) (frequencyRange / ((double) signal.getSampleRate() / signal.getIqDataList().size()));
+        int lowIndex = (int) Math.ceil(samples / 2.0);
+        int highIndex = signal.getIqDataList().size() - (int) Math.ceil(samples / 2.0);
         List<Complex> iqDataList = new ArrayList<>();
         for (int i = 0; i < signal.getIqDataList().size(); i++) {
-            if (i > (samples / 2 + 1) && i < signal.getIqDataList().size() - 1 - samples / 2) {
+            if (i < lowIndex || i >= highIndex) {
                 iqDataList.add(Complex.ZERO);
             } else {
                 iqDataList.add(signal.getIqDataList().get(i));
