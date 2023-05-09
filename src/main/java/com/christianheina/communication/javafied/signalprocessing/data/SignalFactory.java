@@ -24,6 +24,7 @@ import org.apache.commons.math3.complex.Complex;
 
 import com.christianheina.communication.javafied.signalprocessing.enums.BinaryIqFormat;
 import com.christianheina.communication.javafied.signalprocessing.exceptions.SignalProcessingException;
+import com.christianheina.langx.half4j.Half;
 
 /**
  * Factory for {@link Signal}
@@ -98,7 +99,12 @@ public class SignalFactory {
             double inPhase = 0;
             double quadrature = 0;
             if (format == BinaryIqFormat.FLOAT_16) {
-                throw new SignalProcessingException("16 bit float is currently not supported");
+                short inPhaseShort = ByteBuffer.wrap(iqBytes, i * format.getByteLength(), format.getByteLength())
+                        .getShort();
+                short quadratureShort = ByteBuffer
+                        .wrap(iqBytes, (i + 1) * format.getByteLength(), format.getByteLength()).getShort();
+                inPhase = Half.shortBitsToHalf(inPhaseShort).doubleValue();
+                quadrature = Half.shortBitsToHalf(quadratureShort).doubleValue();
             } else if (format == BinaryIqFormat.FLOAT_32) {
                 inPhase = ByteBuffer.wrap(iqBytes, i * format.getByteLength(), format.getByteLength()).getFloat();
                 quadrature = ByteBuffer.wrap(iqBytes, (i + 1) * format.getByteLength(), format.getByteLength())
@@ -107,6 +113,8 @@ public class SignalFactory {
                 inPhase = ByteBuffer.wrap(iqBytes, i * format.getByteLength(), format.getByteLength()).getDouble();
                 quadrature = ByteBuffer.wrap(iqBytes, (i + 1) * format.getByteLength(), format.getByteLength())
                         .getDouble();
+            } else {
+                throw new SignalProcessingException(format + " is currently not supported");
             }
             iqValueList.add(new Complex(inPhase, quadrature));
         }

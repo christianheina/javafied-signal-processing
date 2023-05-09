@@ -40,6 +40,11 @@
 
 	<dependencies>
 		<dependency>
+			<groupId>com.christianheina.langx</groupId>
+			<artifactId>half4j</artifactId>
+			<version>0.0.1</version>
+		</dependency>
+		<dependency>
 			<groupId>org.apache.commons</groupId>
 			<artifactId>commons-math3</artifactId>
 			<version>3.6.1</version>

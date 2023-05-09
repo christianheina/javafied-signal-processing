@@ -24,6 +24,7 @@ import org.testng.annotations.Test;
 
 import com.christianheina.communication.javafied.signalprocessing.enums.BinaryIqFormat;
 import com.christianheina.communication.javafied.signalprocessing.exceptions.SignalProcessingException;
+import com.christianheina.langx.half4j.Half;
 
 /**
  * Unit test for {@link SignalFactory}.
@@ -59,9 +60,27 @@ public class SignalFactoryTest {
     }
 
     @Test
-    public void newIqDataFromByteArrayTest() {
+    public void newIqDataFromByteArrayHalfTest() {
+        byte iqBytes[] = new byte[] { 60, 0, 0, 0 };
+        TimeDomainSignal iqData = SignalFactory.newTimeDomainSignal(iqBytes, BinaryIqFormat.FLOAT_16, 122800000);
+        Assert.assertNotEquals(iqData, null);
+        Assert.assertEquals(iqData.getClass(), TimeDomainSignal.class);
+        Assert.assertEquals(iqData.getIqDataList().get(0), new Complex(1, 0));
+    }
+
+    @Test
+    public void newIqDataFromByteArrayFloatTest() {
         byte iqBytes[] = new byte[] { 63, -128, 0, 0, 0, 0, 0, 0 };
         TimeDomainSignal iqData = SignalFactory.newTimeDomainSignal(iqBytes, BinaryIqFormat.FLOAT_32, 122800000);
+        Assert.assertNotEquals(iqData, null);
+        Assert.assertEquals(iqData.getClass(), TimeDomainSignal.class);
+        Assert.assertEquals(iqData.getIqDataList().get(0), new Complex(1, 0));
+    }
+
+    @Test
+    public void newIqDataFromByteArrayDoubleTest() {
+        byte iqBytes[] = new byte[] { 63, -16, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
+        TimeDomainSignal iqData = SignalFactory.newTimeDomainSignal(iqBytes, BinaryIqFormat.FLOAT_64, 122800000);
         Assert.assertNotEquals(iqData, null);
         Assert.assertEquals(iqData.getClass(), TimeDomainSignal.class);
         Assert.assertEquals(iqData.getIqDataList().get(0), new Complex(1, 0));
@@ -83,6 +102,14 @@ public class SignalFactoryTest {
         Assert.assertNotEquals(iqData, null);
         Assert.assertEquals(iqData.getClass(), TimeDomainSignal.class);
         Assert.assertEquals(iqData.getIqDataList().get(0), new Complex(1, 0));
+    }
+
+    @Test
+    public void newFrequencyDomainSignalTest() {
+        FrequencyDomainSignal iqData = SignalFactory.newFrequencyDomainSignal(new ArrayList<>(), 122800000);
+        Assert.assertNotEquals(iqData, null);
+        Assert.assertEquals(iqData.getClass(), FrequencyDomainSignal.class);
+        Assert.assertTrue(iqData.getIqDataList().isEmpty());
     }
 
 }
