@@ -16,6 +16,7 @@
 
 package com.christianheina.communication.javafied.signalprocessing.data;
 
+import java.nio.ByteOrder;
 import java.util.ArrayList;
 
 import org.apache.commons.math3.complex.Complex;
@@ -62,7 +63,8 @@ public class SignalFactoryTest {
     @Test
     public void newIqDataFromByteArrayHalfTest() {
         byte iqBytes[] = new byte[] { 60, 0, 0, 0 };
-        TimeDomainSignal iqData = SignalFactory.newTimeDomainSignal(iqBytes, BinaryIqFormat.FLOAT_16, 122800000);
+        TimeDomainSignal iqData = SignalFactory.newTimeDomainSignal(iqBytes, BinaryIqFormat.FLOAT_16,
+                ByteOrder.BIG_ENDIAN, 122800000);
         Assert.assertNotEquals(iqData, null);
         Assert.assertEquals(iqData.getClass(), TimeDomainSignal.class);
         Assert.assertEquals(iqData.getIqDataList().get(0), new Complex(1, 0));
@@ -71,7 +73,8 @@ public class SignalFactoryTest {
     @Test
     public void newIqDataFromByteArrayFloatTest() {
         byte iqBytes[] = new byte[] { 63, -128, 0, 0, 0, 0, 0, 0 };
-        TimeDomainSignal iqData = SignalFactory.newTimeDomainSignal(iqBytes, BinaryIqFormat.FLOAT_32, 122800000);
+        TimeDomainSignal iqData = SignalFactory.newTimeDomainSignal(iqBytes, BinaryIqFormat.FLOAT_32,
+                ByteOrder.BIG_ENDIAN, 122800000);
         Assert.assertNotEquals(iqData, null);
         Assert.assertEquals(iqData.getClass(), TimeDomainSignal.class);
         Assert.assertEquals(iqData.getIqDataList().get(0), new Complex(1, 0));
@@ -80,7 +83,8 @@ public class SignalFactoryTest {
     @Test
     public void newIqDataFromByteArrayDoubleTest() {
         byte iqBytes[] = new byte[] { 63, -16, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
-        TimeDomainSignal iqData = SignalFactory.newTimeDomainSignal(iqBytes, BinaryIqFormat.FLOAT_64, 122800000);
+        TimeDomainSignal iqData = SignalFactory.newTimeDomainSignal(iqBytes, BinaryIqFormat.FLOAT_64,
+                ByteOrder.BIG_ENDIAN, 122800000);
         Assert.assertNotEquals(iqData, null);
         Assert.assertEquals(iqData.getClass(), TimeDomainSignal.class);
         Assert.assertEquals(iqData.getIqDataList().get(0), new Complex(1, 0));
@@ -89,7 +93,8 @@ public class SignalFactoryTest {
     @Test(expectedExceptions = SignalProcessingException.class)
     public void newIqDataFromIncompleteByteArrayTest() {
         byte iqBytes[] = new byte[] { 63, -128, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
-        TimeDomainSignal iqData = SignalFactory.newTimeDomainSignal(iqBytes, BinaryIqFormat.FLOAT_32, 122800000);
+        TimeDomainSignal iqData = SignalFactory.newTimeDomainSignal(iqBytes, BinaryIqFormat.FLOAT_32,
+                ByteOrder.BIG_ENDIAN, 122800000);
         Assert.assertNotEquals(iqData, null);
         Assert.assertEquals(iqData.getClass(), TimeDomainSignal.class);
         Assert.assertEquals(iqData.getIqDataList().get(0), new Complex(1, 0));
@@ -98,7 +103,8 @@ public class SignalFactoryTest {
     @Test(expectedExceptions = SignalProcessingException.class)
     public void newIqDataFromNonPairByteArrayTest() {
         byte iqBytes[] = new byte[] { 63, -128, 0, 0, 0, 0, 0, 0, 0, 0 };
-        TimeDomainSignal iqData = SignalFactory.newTimeDomainSignal(iqBytes, BinaryIqFormat.FLOAT_32, 122800000);
+        TimeDomainSignal iqData = SignalFactory.newTimeDomainSignal(iqBytes, BinaryIqFormat.FLOAT_32,
+                ByteOrder.BIG_ENDIAN, 122800000);
         Assert.assertNotEquals(iqData, null);
         Assert.assertEquals(iqData.getClass(), TimeDomainSignal.class);
         Assert.assertEquals(iqData.getIqDataList().get(0), new Complex(1, 0));

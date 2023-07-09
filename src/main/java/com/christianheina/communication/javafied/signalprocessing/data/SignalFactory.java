@@ -17,6 +17,7 @@
 package com.christianheina.communication.javafied.signalprocessing.data;
 
 import java.nio.ByteBuffer;
+import java.nio.ByteOrder;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -74,7 +75,8 @@ public class SignalFactory {
     }
 
     /**
-     * Create new {@link TimeDomainSignal} instance from byte array containing I and Q pairs.
+     * Create new {@link TimeDomainSignal} instance from byte array containing I and Q pairs.<br>
+     * <strong>NOTE!</strong> Method uses default byte order of {@link ByteOrder#BIG_ENDIAN}.
      * 
      * @param iqBytes
      *            byte array containing I and Q pairs.
@@ -84,8 +86,33 @@ public class SignalFactory {
      *            the sample rate of IQ data
      * 
      * @return new {@link TimeDomainSignal} instance containing the converted byte array
+     * 
+     * @deprecated As of 2023-07-09 this is replaced by
+     *             {@link com.christianheina.communication.javafied.signalprocessing.data.SignalFactory#newTimeDomainSignal(byte[], BinaryIqFormat, ByteOrder, int)
+     *             newTimeDomainSignal(byte[] iqBytes, BinaryIqFormat format, ByteOrder byteOrder, int sampleRate)}.
+     *             This method will be supported until 2023-10-09 and removed 2024-01-09.
      */
+    @Deprecated
     public static TimeDomainSignal newTimeDomainSignal(byte[] iqBytes, BinaryIqFormat format, int sampleRate) {
+        return newTimeDomainSignal(iqBytes, format, ByteOrder.BIG_ENDIAN, sampleRate);
+    }
+
+    /**
+     * Create new {@link TimeDomainSignal} instance from byte array containing I and Q pairs.
+     * 
+     * @param iqBytes
+     *            byte array containing I and Q pairs.
+     * @param format
+     *            the binary format of conversion
+     * @param byteOrder
+     *            the iqBytes byte order
+     * @param sampleRate
+     *            the sample rate of IQ data
+     * 
+     * @return new {@link TimeDomainSignal} instance containing the converted byte array
+     */
+    public static TimeDomainSignal newTimeDomainSignal(byte[] iqBytes, BinaryIqFormat format, ByteOrder byteOrder,
+            int sampleRate) {
         if (iqBytes.length % format.getByteLength() != 0) {
             throw new SignalProcessingException(
                     "IQ byte array and format does not match. Please make sure expected format matches byte array");
@@ -95,24 +122,19 @@ public class SignalFactory {
             throw new SignalProcessingException("IQ byte values need to be in I and Q pairs");
         }
         List<Complex> iqValueList = new ArrayList<Complex>();
+        ByteBuffer buf = ByteBuffer.wrap(iqBytes).order(byteOrder);
         for (int i = 0; i < chunks; i += 2) {
             double inPhase = 0;
             double quadrature = 0;
             if (format == BinaryIqFormat.FLOAT_16) {
-                short inPhaseShort = ByteBuffer.wrap(iqBytes, i * format.getByteLength(), format.getByteLength())
-                        .getShort();
-                short quadratureShort = ByteBuffer
-                        .wrap(iqBytes, (i + 1) * format.getByteLength(), format.getByteLength()).getShort();
-                inPhase = Half.shortBitsToHalf(inPhaseShort).doubleValue();
-                quadrature = Half.shortBitsToHalf(quadratureShort).doubleValue();
+                inPhase = Half.shortBitsToHalf(buf.getShort()).doubleValue();
+                quadrature = Half.shortBitsToHalf(buf.getShort()).doubleValue();
             } else if (format == BinaryIqFormat.FLOAT_32) {
-                inPhase = ByteBuffer.wrap(iqBytes, i * format.getByteLength(), format.getByteLength()).getFloat();
-                quadrature = ByteBuffer.wrap(iqBytes, (i + 1) * format.getByteLength(), format.getByteLength())
-                        .getFloat();
+                inPhase = buf.getFloat();
+                quadrature = buf.getFloat();
             } else if (format == BinaryIqFormat.FLOAT_64) {
-                inPhase = ByteBuffer.wrap(iqBytes, i * format.getByteLength(), format.getByteLength()).getDouble();
-                quadrature = ByteBuffer.wrap(iqBytes, (i + 1) * format.getByteLength(), format.getByteLength())
-                        .getDouble();
+                inPhase = buf.getDouble();
+                quadrature = buf.getDouble();
             } else {
                 throw new SignalProcessingException(format + " is currently not supported");
             }
