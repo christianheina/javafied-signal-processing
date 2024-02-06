@@ -18,7 +18,7 @@ package com.christianheina.communication.javafied.signalprocessing;
 
 import java.util.ArrayList;
 import java.util.List;
-
+import java.util.stream.IntStream;
 import org.apache.commons.math3.complex.Complex;
 
 import com.christianheina.communication.javafied.signalprocessing.data.FrequencyDomainSignal;
@@ -175,9 +175,16 @@ public class SignalProcessing {
         if (frequencyRange > signal.getSampleRate()) {
             throw new SignalProcessingException("Requested frequency range is larger than data sample rate");
         }
-        int samples = (int) (frequencyRange / ((double) signal.getSampleRate() / signal.getIqDataList().size()));
-        List<Complex> iqDataList = signal.getIqDataList().subList((int) Math.ceil(samples / 2.0),
-                signal.getIqDataList().size() - (int) Math.ceil(samples / 2.0));
+
+        double[] freqs = IntStream.range(0, signal.getIqDataList().size()).mapToDouble(
+                i -> (i - signal.getIqDataList().size() / 2.0) * signal.getSampleRate() / signal.getIqDataList().size())
+                .toArray();
+
+        long halfFrequencyRange = frequencyRange / 2;
+        int[] indexes = IntStream.range(0, freqs.length)
+                .filter(i -> freqs[i] >= -halfFrequencyRange && freqs[i] <= halfFrequencyRange).toArray();
+        List<Complex> iqDataList = signal.getIqDataList().subList(indexes[0], indexes[indexes.length - 1]);
+
         return SignalFactory.newFrequencyDomainSignal(iqDataList, signal.getSampleRate());
     }
 
