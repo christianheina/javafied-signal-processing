@@ -25,7 +25,6 @@ import org.testng.annotations.Test;
 
 import com.christianheina.communication.javafied.signalprocessing.enums.BinaryIqFormat;
 import com.christianheina.communication.javafied.signalprocessing.exceptions.SignalProcessingException;
-import com.christianheina.langx.half4j.Half;
 
 /**
  * Unit test for {@link SignalFactory}.

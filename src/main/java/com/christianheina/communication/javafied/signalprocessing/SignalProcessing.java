@@ -19,6 +19,7 @@ package com.christianheina.communication.javafied.signalprocessing;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.IntStream;
+
 import org.apache.commons.math3.complex.Complex;
 
 import com.christianheina.communication.javafied.signalprocessing.data.FrequencyDomainSignal;
