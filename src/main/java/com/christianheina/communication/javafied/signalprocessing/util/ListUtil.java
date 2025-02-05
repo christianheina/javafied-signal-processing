@@ -25,7 +25,12 @@ import org.apache.commons.math3.complex.Complex;
  * Utility class providing functionality for lists.
  * 
  * @author Christian Heina (developer@christianheina.com)
+ * 
+ * @deprecated As of 2025-02-05 this is replaced by {@link com.christianheina.common.utilities.ListUtil
+ *             com.christianheina.common.utilities.ListUtil}. This class will be supported until 2025-05-05 and removed
+ *             2023-08-05.
  */
+@Deprecated
 public class ListUtil {
 
     private ListUtil() {
@@ -39,7 +44,13 @@ public class ListUtil {
      *            list to deep copy
      * 
      * @return new deep copied list
+     * 
+     * @deprecated As of 2025-02-05 this is replaced by
+     *             {@link com.christianheina.common.utilities.ListUtil#deepCopyComplexList
+     *             com.christianheina.common.utilities.ListUtil#deepCopyComplexList}. This class will be supported until
+     *             2025-05-05 and removed 2023-08-05.
      */
+    @Deprecated
     public static List<Complex> deepCopyList(List<Complex> complexListToDeepCopy) {
         List<Complex> deepCopyList = new ArrayList<>(complexListToDeepCopy.size());
         for (Complex sample : complexListToDeepCopy) {

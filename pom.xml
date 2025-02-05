@@ -30,6 +30,8 @@
 		<maven.compiler.source>1.8</maven.compiler.source>
 		<maven.compiler.target>1.8</maven.compiler.target>
 		<half4j.version>0.0.2</half4j.version>
+		<common-math.version>0.0.1</common-math.version>
+		<common-utilities.version>0.0.3</common-utilities.version>
 		<commons-math3.version>3.6.1</commons-math3.version>
 		<jtransforms.version>3.1</jtransforms.version>
 		<json-simple.version>1.1.1</json-simple.version>
@@ -48,6 +50,16 @@
 			<groupId>com.christianheina.langx</groupId>
 			<artifactId>half4j</artifactId>
 			<version>${half4j.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.christianheina.common</groupId>
+			<artifactId>common-math</artifactId>
+			<version>${common-math.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.christianheina.common</groupId>
+			<artifactId>common-utilities</artifactId>
+			<version>${common-utilities.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.apache.commons</groupId>

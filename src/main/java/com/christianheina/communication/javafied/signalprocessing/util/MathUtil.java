@@ -22,7 +22,12 @@ import java.util.List;
  * Provides math utilities.
  * 
  * @author Christian Heina (developer@christianheina.com)
+ * 
+ * @deprecated As of 2025-02-05 this is replaced by {@link com.christianheina.common.math.MathAdditions
+ *             com.christianheina.common.math.MathAdditions}. This class will be supported until 2025-05-05 and removed
+ *             2023-08-05.
  */
+@Deprecated
 public class MathUtil {
 
     private MathUtil() {
@@ -41,7 +46,13 @@ public class MathUtil {
      * 
      * @exception IllegalArgumentException
      *                if complexList1 and complexList2 is not the same size
+     * 
+     * @deprecated As of 2025-02-05 this is replaced by
+     *             {@link com.christianheina.common.math.MathAdditions#pearsonCorrelation
+     *             com.christianheina.common.math.MathAdditions#pearsonCorrelation}. This class will be supported until
+     *             2025-05-05 and removed 2023-08-05.
      */
+    @Deprecated
     public static double pearsonCorrelation(List<Double> doubleList1, List<Double> doubleList2) {
         double coveriance = covariance(doubleList1, doubleList2);
 
@@ -63,7 +74,12 @@ public class MathUtil {
      * 
      * @exception IllegalArgumentException
      *                if doubleList1 and doubleList2 is not the same size
+     * 
+     * @deprecated As of 2025-02-05 this is replaced by {@link com.christianheina.common.math.MathAdditions#dotProduct
+     *             com.christianheina.common.math.MathAdditions#dotProduct}. This class will be supported until
+     *             2025-05-05 and removed 2023-08-05.
      */
+    @Deprecated
     public static double dotProduct(List<Double> doubleList1, List<Double> doubleList2) {
         // Check vectors are same size
         if (doubleList1.size() != doubleList2.size()) {
@@ -90,7 +106,12 @@ public class MathUtil {
      * 
      * @exception IllegalArgumentException
      *                if doubleList1 and doubleList2 is not the same size
+     * 
+     * @deprecated As of 2025-02-05 this is replaced by {@link com.christianheina.common.math.MathAdditions#covariance
+     *             com.christianheina.common.math.MathAdditions#covariance}. This class will be supported until
+     *             2025-05-05 and removed 2023-08-05.
      */
+    @Deprecated
     public static double covariance(List<Double> doubleList1, List<Double> doubleList2) {
         // Check vectors are same size
         if (doubleList1.size() != doubleList2.size()) {
@@ -112,7 +133,12 @@ public class MathUtil {
      *            list to calculate variance
      * 
      * @return variance [var(complexList)]
+     * 
+     * @deprecated As of 2025-02-05 this is replaced by {@link com.christianheina.common.math.MathAdditions#variance
+     *             com.christianheina.common.math.MathAdditions#variance}. This class will be supported until 2025-05-05
+     *             and removed 2023-08-05.
      */
+    @Deprecated
     public static double variance(List<Double> doubleList) {
         double u = mean(doubleList); // Calculate mean (u)
         double sum = 0;
@@ -131,7 +157,13 @@ public class MathUtil {
      *            list to calculate standard deviation
      * 
      * @return standard deviation
+     * 
+     * @deprecated As of 2025-02-05 this is replaced by
+     *             {@link com.christianheina.common.math.MathAdditions#standardDeviation
+     *             com.christianheina.common.math.MathAdditions#standardDeviation}. This class will be supported until
+     *             2025-05-05 and removed 2023-08-05.
      */
+    @Deprecated
     public static double standardDeviation(List<Double> doubleList) {
         // square root of variance
         return Math.sqrt(variance(doubleList));
@@ -144,7 +176,12 @@ public class MathUtil {
      *            list to sum
      * 
      * @return sum value
+     * 
+     * @deprecated As of 2025-02-05 this is replaced by {@link com.christianheina.common.math.MathAdditions#sum
+     *             com.christianheina.common.math.MathAdditions#sum}. This class will be supported until 2025-05-05 and
+     *             removed 2023-08-05.
      */
+    @Deprecated
     public static double sum(List<Double> listToSum) {
         double sum = 0;
         for (double power : listToSum) {
@@ -160,7 +197,12 @@ public class MathUtil {
      *            list to mean
      * 
      * @return mean value
+     * 
+     * @deprecated As of 2025-02-05 this is replaced by {@link com.christianheina.common.math.MathAdditions#mean
+     *             com.christianheina.common.math.MathAdditions#mean}. This class will be supported until 2025-05-05 and
+     *             removed 2023-08-05.
      */
+    @Deprecated
     public static double mean(List<Double> listToMean) {
         // Divide sum of all entries by the number of entries
         return sum(listToMean) / listToMean.size();

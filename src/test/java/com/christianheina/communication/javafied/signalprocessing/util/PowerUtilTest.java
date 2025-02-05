@@ -27,7 +27,11 @@ import org.testng.annotations.Test;
  * Unit test for {@link PowerUtil}.
  * 
  * @author Christian Heina (developer@christianheina.com)
+ * 
+ * @deprecated As of 2025-02-05 this class is deprecated. This class will be supported until 2025-05-05 and removed
+ *             2023-08-05.
  */
+@Deprecated
 public class PowerUtilTest {
 
     private static final Complex COMPLEX_DATA_VALUE = new Complex(1, 0);

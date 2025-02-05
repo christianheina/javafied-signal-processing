@@ -20,7 +20,7 @@ import java.util.List;
 
 import org.apache.commons.math3.complex.Complex;
 
-import com.christianheina.communication.javafied.signalprocessing.util.ComplexMath;
+import com.christianheina.common.math.ComplexAdditions;
 
 /**
  * Class for handling time domain signals.
@@ -40,7 +40,8 @@ public class TimeDomainSignal extends Signal {
      */
     public FrequencyDomainSignal asFrequencyDomainSignal() {
         return new FrequencyDomainSignal(
-                ComplexMath.normalizeBySizeOfList(ComplexMath.fftShift(ComplexMath.fft(iqDataList))), sampleRate);
+                ComplexAdditions.normalizeBySizeOfList(ComplexAdditions.fftShift(ComplexAdditions.fft(iqDataList))),
+                sampleRate);
     }
 
 }

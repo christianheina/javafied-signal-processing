@@ -27,7 +27,12 @@ import org.jtransforms.fft.DoubleFFT_1D;
  * Utility class providing math functionality for complex numbers.
  * 
  * @author Christian Heina (developer@christianheina.com)
+ * 
+ * @deprecated As of 2025-02-05 this is replaced by {@link com.christianheina.common.math.ComplexAdditions
+ *             com.christianheina.common.math.ComplexAdditions}. This class will be supported until 2025-05-05 and
+ *             removed 2023-08-05.
  */
+@Deprecated
 public class ComplexMath {
 
     private ComplexMath() {
@@ -45,7 +50,13 @@ public class ComplexMath {
      * 
      * @exception IllegalArgumentException
      *                if complexList1 and complexList2 is not the same size
+     * 
+     * @deprecated As of 2025-02-05 this is replaced by
+     *             {@link com.christianheina.common.math.ComplexAdditions#pearsonCorrelation
+     *             com.christianheina.common.math.ComplexAdditions#pearsonCorrelation}. This class will be supported
+     *             until 2025-05-05 and removed 2023-08-05.
      */
+    @Deprecated
     public static Complex pearsonCorrelation(List<Complex> complexList1, List<Complex> complexList2) {
         Complex coveriance = covariance(complexList1, complexList2);
 
@@ -67,7 +78,13 @@ public class ComplexMath {
      * 
      * @exception IllegalArgumentException
      *                if complexList1 and complexList2 is not the same size
+     * 
+     * @deprecated As of 2025-02-05 this is replaced by
+     *             {@link com.christianheina.common.math.ComplexAdditions#dotProduct
+     *             com.christianheina.common.math.ComplexAdditions#dotProduct}. This class will be supported until
+     *             2025-05-05 and removed 2023-08-05.
      */
+    @Deprecated
     public static Complex dotProduct(List<Complex> complexList1, List<Complex> complexList2) {
         // Check vectors are same size
         if (complexList1.size() != complexList2.size()) {
@@ -94,7 +111,13 @@ public class ComplexMath {
      * 
      * @exception IllegalArgumentException
      *                if complexList1 and complexList2 is not the same size
+     * 
+     * @deprecated As of 2025-02-05 this is replaced by
+     *             {@link com.christianheina.common.math.ComplexAdditions#covariance
+     *             com.christianheina.common.math.ComplexAdditions#covariance}. This class will be supported until
+     *             2025-05-05 and removed 2023-08-05.
      */
+    @Deprecated
     public static Complex covariance(List<Complex> complexList1, List<Complex> complexList2) {
         // Check vectors are same size
         if (complexList1.size() != complexList2.size()) {
@@ -116,7 +139,12 @@ public class ComplexMath {
      *            complex list to calculate variance
      * 
      * @return variance [var(complexList)]
+     * 
+     * @deprecated As of 2025-02-05 this is replaced by {@link com.christianheina.common.math.ComplexAdditions#variance
+     *             com.christianheina.common.math.ComplexAdditions#variance}. This class will be supported until
+     *             2025-05-05 and removed 2023-08-05.
      */
+    @Deprecated
     public static double variance(List<Complex> complexList) {
         Complex u = mean(complexList); // Calculate mean (u)
         double sum = 0;
@@ -136,7 +164,13 @@ public class ComplexMath {
      *            complex list to calculate standard deviation
      * 
      * @return standard deviation
+     * 
+     * @deprecated As of 2025-02-05 this is replaced by
+     *             {@link com.christianheina.common.math.ComplexAdditions#standardDeviation
+     *             com.christianheina.common.math.ComplexAdditions#standardDeviation}. This class will be supported
+     *             until 2025-05-05 and removed 2023-08-05.
      */
+    @Deprecated
     public static double standardDeviation(List<Complex> complexList) {
         // square root of variance
         return Math.sqrt(variance(complexList));
@@ -149,7 +183,12 @@ public class ComplexMath {
      *            complex list to sum
      * 
      * @return sum value
+     * 
+     * @deprecated As of 2025-02-05 this is replaced by {@link com.christianheina.common.math.ComplexAdditions#sum
+     *             com.christianheina.common.math.ComplexAdditions#sum}. This class will be supported until 2025-05-05
+     *             and removed 2023-08-05.
      */
+    @Deprecated
     public static Complex sum(List<Complex> listToSum) {
         Complex sum = Complex.ZERO;
 
@@ -168,7 +207,12 @@ public class ComplexMath {
      *            complex list to mean
      * 
      * @return mean value
+     * 
+     * @deprecated As of 2025-02-05 this is replaced by {@link com.christianheina.common.math.ComplexAdditions#mean
+     *             com.christianheina.common.math.ComplexAdditions#mean}. This class will be supported until 2025-05-05
+     *             and removed 2023-08-05.
      */
+    @Deprecated
     public static Complex mean(List<Complex> listToMean) {
         // Divide sum of all entries by the number of entries
         return sum(listToMean).divide(listToMean.size());
@@ -181,7 +225,12 @@ public class ComplexMath {
      *            list of complex values to perform FFT on
      * 
      * @return result of FFT. Size of resulting FFT list is same as complexList argument
+     * 
+     * @deprecated As of 2025-02-05 this is replaced by {@link com.christianheina.common.math.ComplexAdditions#fft
+     *             com.christianheina.common.math.ComplexAdditions#fft}. This class will be supported until 2025-05-05
+     *             and removed 2023-08-05.
      */
+    @Deprecated
     public static List<Complex> fft(List<Complex> complexList) {
         DoubleFFT_1D fft = new DoubleFFT_1D(complexList.size());
         double[] complexPairs = createComplexPairs(complexList);
@@ -200,7 +249,12 @@ public class ComplexMath {
      *            list to shift
      * 
      * @return new shifted list
+     * 
+     * @deprecated As of 2025-02-05 this is replaced by {@link com.christianheina.common.math.ComplexAdditions#fftShift
+     *             com.christianheina.common.math.ComplexAdditions#fftShift}. This class will be supported until
+     *             2025-05-05 and removed 2023-08-05.
      */
+    @Deprecated
     public static List<Complex> fftShift(List<Complex> complexList) {
         return circularlyShift(complexList, complexList.size() >> 1);
     }
@@ -212,7 +266,12 @@ public class ComplexMath {
      *            list of complex values to perform iFFT on
      * 
      * @return result of iFFT. Size of resulting FFT list is same as complexList argument
+     * 
+     * @deprecated As of 2025-02-05 this is replaced by {@link com.christianheina.common.math.ComplexAdditions#ifft
+     *             com.christianheina.common.math.ComplexAdditions#ifft}. This class will be supported until 2025-05-05
+     *             and removed 2023-08-05.
      */
+    @Deprecated
     public static List<Complex> ifft(List<Complex> complexList) {
         DoubleFFT_1D temp = new DoubleFFT_1D(complexList.size());
         double[] complexPairs = createComplexPairs(complexList);
@@ -231,7 +290,12 @@ public class ComplexMath {
      *            list to shift
      * 
      * @return new shifted list
+     * 
+     * @deprecated As of 2025-02-05 this is replaced by {@link com.christianheina.common.math.ComplexAdditions#ifftShift
+     *             com.christianheina.common.math.ComplexAdditions#ifftShift}. This class will be supported until
+     *             2025-05-05 and removed 2023-08-05.
      */
+    @Deprecated
     public static List<Complex> ifftShift(List<Complex> complexList) {
         return circularlyShift(complexList, (complexList.size() + 1) >> 1);
     }
@@ -257,8 +321,12 @@ public class ComplexMath {
      * @param complexList
      *            list to normalize
      * 
-     * @return new list containing normalized data
+     * @deprecated As of 2025-02-05 this is replaced by
+     *             {@link com.christianheina.common.math.ComplexAdditions#normalizeBySizeOfList
+     *             com.christianheina.common.math.ComplexAdditions#normalizeBySizeOfList}. This class will be supported
+     *             until 2025-05-05 and removed 2023-08-05.
      */
+    @Deprecated
     public static List<Complex> normalizeBySizeOfList(List<Complex> complexList) {
         List<Complex> normalizedComplexList = new ArrayList<>(complexList.size());
         for (Complex sample : complexList) {
@@ -274,7 +342,13 @@ public class ComplexMath {
      *            list to scale
      * 
      * @return new list containing scaled list
+     * 
+     * @deprecated As of 2025-02-05 this is replaced by
+     *             {@link com.christianheina.common.math.ComplexAdditions#scaleBySizeOfList
+     *             com.christianheina.common.math.ComplexAdditions#scaleBySizeOfList}. This class will be supported
+     *             until 2025-05-05 and removed 2023-08-05.
      */
+    @Deprecated
     public static List<Complex> scaleBySizeOfList(List<Complex> complexList) {
         List<Complex> scaledComplexList = new ArrayList<>(complexList.size());
         for (Complex sample : complexList) {
